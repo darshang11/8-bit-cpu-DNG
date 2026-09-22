@@ -28,6 +28,7 @@
 // Revision:
 // Revision 0.01 - File Created
 // Revision 0.02 - All 8 operations and Z/N/C flags implemented
+// Revision 0.03 - Passes alu_tb (278 passed tests, 0 failed tests)
 // Additional Comments:
 //////////////////////////////////////////////////////////////////////////////////
 `timescale 1ns / 1ps
