@@ -2,7 +2,7 @@
 
 An 8-bit multi-cycle von Neumann CPU, designed and written from scratch in Verilog.
 
-**Status:** in progress. The ALU is complete and verified; the register file is next.
+**Status:** in progress. The ALU and register file are complete and verified; memory is next.
 
 ## Architecture
 
@@ -40,7 +40,7 @@ An 8-bit multi-cycle von Neumann CPU, designed and written from scratch in Veril
 ## Progress
 
 - [x] ALU: 8 operations with zero, negative, and carry flags
-- [ ] Register file
+- [x] Register file: 4 × 8-bit registers, three read ports, clocked write with enable
 - [ ] Memory
 - [ ] Control unit
 - [ ] Top-level CPU integration
@@ -50,13 +50,16 @@ An 8-bit multi-cycle von Neumann CPU, designed and written from scratch in Veril
 
 ## Verification
 
+Every module has a self-checking testbench that prints each failure and a final PASS/FAIL line.
+
 | Module | Testbench | Result |
 |---|---|---|
 | ALU | `alu_tb.v`: 22 directed cases covering every operation and flag, plus an exhaustive ADD sweep | 278 / 278 pass |
+| Register file | `regfile_tb.v`: one test per specified behavior: reset, write targeting, 8-bit storage, isolation, write enable, independent read ports, write timing, reset priority | 26 / 26 pass |
 
 ## Running the tests
 
-**Vivado:** add `alu.v` and `alu_tb.v`, set `alu_tb` as the simulation top, and run behavioral simulation. Results print in the Tcl Console.
+**Vivado:** add the module and its testbench (for example `regfile.v` and `regfile_tb.v`), set the testbench as the simulation top, and run behavioral simulation. Results print in the Tcl Console.
 
 ## Files
 
@@ -64,6 +67,8 @@ An 8-bit multi-cycle von Neumann CPU, designed and written from scratch in Veril
 |---|---|
 | `alu.v` | Arithmetic logic unit |
 | `alu_tb.v` | Self-checking ALU testbench |
+| `regfile.v` | Register file |
+| `regfile_tb.v` | Self-checking register file testbench |
 
 ## References
 
@@ -71,4 +76,4 @@ An 8-bit multi-cycle von Neumann CPU, designed and written from scratch in Veril
 
 ## How this was built
 
-All Verilog in this repository is written by me using Vivado 2025.2.
+The CPU modules (`alu.v`, `regfile.v`) are written by me in Vivado 2025.2. 
