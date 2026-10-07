@@ -2,7 +2,7 @@
 
 An 8-bit multi-cycle von Neumann CPU, designed and written from scratch in Verilog.
 
-**Status:** in progress. The ALU and register file are complete and verified; memory is next.
+**Status:** in progress. The ALU, register file, and memory are complete and verified; the control unit is next.
 
 ## Architecture
 
@@ -41,8 +41,8 @@ An 8-bit multi-cycle von Neumann CPU, designed and written from scratch in Veril
 
 - [x] ALU: 8 operations with zero, negative, and carry flags
 - [x] Register file: 4 × 8-bit registers, three read ports, clocked write with enable
-- [ ] Memory
-- [ ] Control unit
+- [x] Memory: 256 bytes shared by program and data, separate instruction and data ports, clocked write with enable
+- [ ] Control unit (in progress)
 - [ ] Top-level CPU integration
 - [ ] Test program: sum 1 through 10, store 55 to memory
 - [ ] Full verification suite
@@ -56,6 +56,7 @@ Every module has a self-checking testbench that prints each failure and a final 
 |---|---|---|
 | ALU | `alu_tb.v`: 22 directed cases covering every operation and flag, plus an exhaustive ADD sweep | 278 / 278 pass |
 | Register file | `regfile_tb.v`: one test per specified behavior: reset, write targeting, 8-bit storage, isolation, write enable, independent read ports, write timing, reset priority | 26 / 26 pass |
+| Memory | `memory_tb.v`: startup clear of all 256 bytes, instruction byte order, FF wraparound, write timing, write enable, isolation, edge addresses, independent ports, data writes visible to instruction fetch | 272 / 272 pass |
 
 ## Running the tests
 
@@ -69,6 +70,8 @@ Every module has a self-checking testbench that prints each failure and a final 
 | `alu_tb.v` | Self-checking ALU testbench |
 | `regfile.v` | Register file |
 | `regfile_tb.v` | Self-checking register file testbench |
+| `memory.v` | 256-byte unified memory |
+| `memory_tb.v` | Self-checking memory testbench |
 
 ## References
 
@@ -76,4 +79,4 @@ Every module has a self-checking testbench that prints each failure and a final 
 
 ## How this was built
 
-The CPU modules (`alu.v`, `regfile.v`) are written by me in Vivado 2025.2. 
+The CPU modules (`alu.v`, `regfile.v`, `memory.v`) are written by me in Vivado 2025.2. 
